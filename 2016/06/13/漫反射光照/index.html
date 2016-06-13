@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>漫反射光照 | 少年鲜衣怒马，仗剑天涯</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在游戏开发过程中，光照应该是必不可少部分，当然，这是指大多数的稍微大型一些的3D游戏会需要，给模型或者山山水水加上光照，会看上去更加的真实，获得更好的体验。一个本身不发光物体显示什么颜色，在于本身反射什么颜色，比如一块石头，在太阳光的照射之后，你看到是红色的，而太阳光是白色的，白色是因为RGB组合而成，这快石头吸收了绿色和蓝色，反射了红色，那么你看到这块石头就会是红色的！那么谈到反射，就分为了漫反">
+<meta property="og:type" content="article">
+<meta property="og:title" content="漫反射光照">
+<meta property="og:url" content="http://ubanck.com/2016/06/13/漫反射光照/index.html">
+<meta property="og:site_name" content="少年鲜衣怒马，仗剑天涯">
+<meta property="og:description" content="在游戏开发过程中，光照应该是必不可少部分，当然，这是指大多数的稍微大型一些的3D游戏会需要，给模型或者山山水水加上光照，会看上去更加的真实，获得更好的体验。一个本身不发光物体显示什么颜色，在于本身反射什么颜色，比如一块石头，在太阳光的照射之后，你看到是红色的，而太阳光是白色的，白色是因为RGB组合而成，这快石头吸收了绿色和蓝色，反射了红色，那么你看到这块石头就会是红色的！那么谈到反射，就分为了漫反">
+<meta property="og:updated_time" content="2016-06-12T12:50:39.040Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="漫反射光照">
+<meta name="twitter:description" content="在游戏开发过程中，光照应该是必不可少部分，当然，这是指大多数的稍微大型一些的3D游戏会需要，给模型或者山山水水加上光照，会看上去更加的真实，获得更好的体验。一个本身不发光物体显示什么颜色，在于本身反射什么颜色，比如一块石头，在太阳光的照射之后，你看到是红色的，而太阳光是白色的，白色是因为RGB组合而成，这快石头吸收了绿色和蓝色，反射了红色，那么你看到这块石头就会是红色的！那么谈到反射，就分为了漫反">
+  
+    <link rel="alternative" href="/atom.xml" title="少年鲜衣怒马，仗剑天涯" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">ubanck</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">只要心还透明，就能折射希望</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">ubanck</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">ubanck</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">只要心还透明，就能折射希望</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-漫反射光照" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/13/漫反射光照/" class="article-date">
+  	<time datetime="2016-06-13T00:01:03.581Z" itemprop="datePublished">2016-06-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      漫反射光照
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在游戏开发过程中，光照应该是必不可少部分，当然，这是指大多数的稍微大型一些的3D游戏会需要，给模型或者山山水水加上光照，会看上去更加的真实，获得更好的体验。一个本身不发光物体显示什么颜色，在于本身反射什么颜色，比如一块石头，在太阳光的照射之后，你看到是红色的，而太阳光是白色的，白色是因为RGB组合而成，这快石头吸收了绿色和蓝色，反射了红色，那么你看到这块石头就会是红色的！<br>那么谈到反射，就分为了漫反射（diffuse）和镜面反射（specular），先说漫反射</p>
+<p>因为表面凹凸不平，所有法线的方向也就不一致，那么反射的光线也就不一致，何为法线，所谓法线，就是垂直与表面的那条线（看到一个哥们儿说因为法线一定是垂直的线，像个公正不阿的法官，所以叫法线），入射光线到表面，令入射光线与反射光线的夹角相等，得到反射光线，而我们在计算中是试用dot(N,L)来得到一个值，N代表法线向量，L代表入射光线的向量表示，先对这两个向量进行归一化处理（使用normalize函数）所谓的归一化处理，即是让这个向量的模等于1（其实就是让向量除以他的模，这块可以参考3D图形学基础里面提到的向量部分），而dot函数的公式为向量点乘，即NL=|N||L|cosΘ 由于之前对N与L进行了归一化处理，那么N<em>L=cosΘ，回顾一下三角函数，也就是说，入射光线与法线夹角在（0,90）之间，角度越大，那么值就越小。<br>　　下面给出漫反射的公式：diffuse = Kd lightColor max(N·L,0)。<br>　　首先kd为光强，也就是光照的强度，准确的说是材质对光的反射系数，在0到1 之间，根据名称可以自己想象一下。其次lightColor，这玩意儿是指光的颜色，它里面有rgb三个分量，用句牛逼的话说，世界上所有的颜色都可以用RGB来表示，通过在计算机中RGB三个不同的值可以匹配出无数种颜色，8bit的颜色通道可以表示出0-255，那么256的3次方，就可以组合得到16777216种颜色，当然，人的眼睛貌似感觉不到那么多颜色，扯远了，回到刚刚那个话题，光的颜色有了，在乘以max(N</em>L,0)，为什么要这样做？因为如果夹角大于90度，那么就会出现负数，负数是没有意义的（至于为什么会出现大于90度的情况，请发挥空间想象能力（脑补）），这样就得到了漫反射的颜色值了！！！<br>（就是简单是梳理一下思路！漫反射的代码，待会儿上传一下，作为总结）</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/06/13/渲染管线坐标变换/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          渲染管线坐标变换
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/06/13/技能树梳理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">技能树梳理</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 ubanck
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

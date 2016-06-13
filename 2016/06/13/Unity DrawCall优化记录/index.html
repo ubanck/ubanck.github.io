@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Unity DrawCall优化记录 | 少年鲜衣怒马，仗剑天涯</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="之前负责了一部分Unity DrawCall的优化工作，现将相关记录如下DrawCall是指CPU准备各种数据送达到GPU进行渲染的过程，属于重度操作，DrawCall影响最大的是帧率！直接体验就是卡！目前优化了大地图里面UI的DrawCall问题，由之前的数量相关，合并优化之后，DrawCall降为2个同样，主界面的UI也是，原来杂乱无章的摆放，导致DrawCall数量太多，有意识的重新组织顺序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity DrawCall优化记录">
+<meta property="og:url" content="http://ubanck.com/2016/06/13/Unity DrawCall优化记录/index.html">
+<meta property="og:site_name" content="少年鲜衣怒马，仗剑天涯">
+<meta property="og:description" content="之前负责了一部分Unity DrawCall的优化工作，现将相关记录如下DrawCall是指CPU准备各种数据送达到GPU进行渲染的过程，属于重度操作，DrawCall影响最大的是帧率！直接体验就是卡！目前优化了大地图里面UI的DrawCall问题，由之前的数量相关，合并优化之后，DrawCall降为2个同样，主界面的UI也是，原来杂乱无章的摆放，导致DrawCall数量太多，有意识的重新组织顺序">
+<meta property="og:updated_time" content="2016-06-12T12:41:47.652Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unity DrawCall优化记录">
+<meta name="twitter:description" content="之前负责了一部分Unity DrawCall的优化工作，现将相关记录如下DrawCall是指CPU准备各种数据送达到GPU进行渲染的过程，属于重度操作，DrawCall影响最大的是帧率！直接体验就是卡！目前优化了大地图里面UI的DrawCall问题，由之前的数量相关，合并优化之后，DrawCall降为2个同样，主界面的UI也是，原来杂乱无章的摆放，导致DrawCall数量太多，有意识的重新组织顺序">
+  
+    <link rel="alternative" href="/atom.xml" title="少年鲜衣怒马，仗剑天涯" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">ubanck</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">只要心还透明，就能折射希望</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">ubanck</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">ubanck</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">只要心还透明，就能折射希望</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Unity DrawCall优化记录" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/13/Unity DrawCall优化记录/" class="article-date">
+  	<time datetime="2016-06-13T00:01:03.565Z" itemprop="datePublished">2016-06-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Unity DrawCall优化记录
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前负责了一部分Unity DrawCall的优化工作，现将相关记录如下<br>DrawCall是指CPU准备各种数据送达到GPU进行渲染的过程，属于重度操作，DrawCall影响最大的是帧率！直接体验就是卡！<br>目前优化了大地图里面UI的DrawCall问题，由之前的数量相关，合并优化之后，DrawCall降为2个<br>同样，主界面的UI也是，原来杂乱无章的摆放，导致DrawCall数量太多，有意识的重新组织顺序，根据Unity 的渲染顺序，则可以保证在动态batch中，合并大量的DrawCall！目前主界面UI的DrawCall又30个下降到5个左右（包括一部分3D Mesh,所以无法直接降为2）<br>此外，主界面有3D的模型作为背景，经检查，此部分DrawCall多达150个，令人发指啊，简直不能忍！目前展开优化的方式有三种：1.直接将背景隐藏（影响原本效果），2.将所有的陨石背景合并（目测影响效果）3.由指定方式渲染（即修改顺序，修改参数，对效果的影响几乎可以忽略）<br>为了达到最低的DrawCall，又不过多损失效果，采取符合规则来进行Batch的策略。目前根据Unity渲染顺序，及官方文档提供的说明，整理出优化方案如下：<br>1.排列顺序：UGUI的渲染顺序为从上到下，即你所看到的Hierarchy上面的顺序，在使用同一图集的情况下，连续多次对图片（相同或者不同）的渲染，只占用一个DrawCall，对文字的渲染同理，只要不交叉渲染图片和文字，理论上讲，这样可以把整个UI的Draw降低到2！<br>2.渲染文字：最好使用同一字体，在使用多种字体的时候，最后如1所提示，按顺序来！<br>3.图集的是用，将图片打包成图集的时候，有可能因为图片的格式问题，或者通道之类的问题，导致明明设置在同一图集名称，却打包成了统一图集的两组。所以，尽量使用统一格式！<br>4.同材质模型：渲染许多使用相同材质的模型，有个最容易忽略的地方，Scale如果不一样不能Batch，此外还有对顶点数目，shader的pass数量等有限制，不符合会break batching！<br>5.脚本对材质的访问：访问某个使用共享材质的mesh时，考虑使用render.sharedMaterial而不是render.material，后者会在内存中生成一份拷贝！<br>6.静态batch：在制作场景的时候，如果能保证mesh本身不发生任何变化，可以使用，效果不错，就限制大！</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/06/13/高级光照模型/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          高级光照模型
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/06/13/shader language概述/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">shader language概述</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 ubanck
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
