@@ -132,6 +132,64 @@
 
       <div class="body-wrap">
   
+    <article id="post-GPU图形渲染管线" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/13/GPU图形渲染管线/" class="article-date">
+  	<time datetime="2016-06-13T00:01:03.552Z" itemprop="datePublished">2016-06-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/13/GPU图形渲染管线/">GPU图形渲染管线</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这篇笔记先讨论一下整个绘制管线<br>在图形学方面，将图形绘制管线分为三个主要阶段：应用程序阶段、几何阶段、光栅阶段！<br>应用程序阶段：<br>使用高级语言（C++,C#,JS(webGL)）来进行编写，编写CPU执行的代码，主要是对3D空间进行模拟，针对场景搭建，坐标系建立，剪裁，碰撞检测等等，在这个过程计算完毕之后，几何体数据（顶点坐标、法向量、纹理坐标、纹理等）通过数据总线传送到图形硬件（时间瓶颈）；类似于在DX或者OpenGL中去指定了顶点缓冲区<br>几何阶段：<br>主要负责顶点坐标变换、光照、裁剪、投影以及屏幕映射！<br>坐标变换即（模型坐标系-&gt;世界坐标-&gt;相机坐标-&gt;屏幕投影（屏幕坐标系））<br>光照计算涉及视点、光源和物体的世界坐标，放在世界坐标系中进行计算<br>裁剪即判断哪些可见哪些不可见，删除掉不可见的部分</p>
+<ol>
+<li>中裁剪被安排到一个单位立方体中进行，该立方体的对角顶点分别是 (-1,-1,-1)和(1,1,1)<br>通常称这个单位立方体为规范立方体（Canonical view volume, CVV）用透视变换矩阵把顶点从视锥体中变换到裁剪空间的 CVV </li>
+<li>在 CVV 进行图元裁剪； </li>
+<li>屏幕映射：将经过前述过程得到的坐标映射到屏幕坐标系上。<br>最后得到在屏幕坐标系上的三角面片<br>该阶段基于 GPU 进行运算，在该阶段的末端得到了经过 变换和投影之后的顶点坐标、颜色、以及纹理坐标<br>光栅化阶段：<br>光栅这个词可能一开始并不是很好理解，简单点理解就是将数据格式到屏幕上！<br>决定哪些像素被集合图元覆盖的过程，经过几何阶段之后，得到了顶点坐标，颜色，纹理，有点坐标有点颜色，这个时候需要去对点与点之间进行画线</li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-GPU编程概述" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">

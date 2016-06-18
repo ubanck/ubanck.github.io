@@ -132,6 +132,59 @@
 
       <div class="body-wrap">
   
+    <article id="post-做该做的事儿" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/18/做该做的事儿/" class="article-date">
+  	<time datetime="2016-06-18T09:22:10.000Z" itemprop="datePublished">2016-06-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/18/做该做的事儿/">做该做的事儿</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>人心是渐渐变凉的，树叶是慢慢变黄的，故事缓缓写到结尾！</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-转变画风" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -606,64 +659,6 @@
 <p>###查询元素，tonumber,tostring之类的<br>堆栈的操作，gettop返回堆栈元素个数，也是栈顶元素的索引！settop设置栈顶（堆栈中元素个数）为一个指定的值！如果开始的栈顶高于指定的栈顶，顶部的值将会被丢弃！settop(L,0)清空堆栈！<br>使用负数会设置堆栈顶到指定的索引！<br>pushvalue压入堆栈上指定索引的一个拷贝到栈顶！insert移动栈顶的元素到指定索引的位置，并将这个索引位置上面的元素全部上移至栈顶被移动后留下的空隔！<br>replace从栈顶弹出元素将其设置到指定索引位置，没有任何移动操作<br>LUA中使用更多的使用对栈的操作来实现数据的交互！提供了一些对栈操作的API标准，在UniLua中，依照标准实现了这些函数，名字都只是小改动了一些，毕竟C#跟C语法规则还是不同！在对堆栈的操作中，是用索引来进行定位的，正数索引自底向上取值，负数索引自顶向下取值（以正负1开始）！在其中settop函数中使用了索引0用来清空堆栈</p>
 <p>###扩展你的程序<br>做为配置语言是LUA的一个重要内容！<br>打开包并加载函数库，加载文件中的信息块 （参见188页 ）<br>引入table的概念<br>如 ；在Lua文件中进行这样的定义：BLUE={r=0,g=0,b=1} background=BLUE 在C程序里面引用getglobal(L,background); red=getfield(“r”) green=getfield(“g”)……<br>getfield函数在标准的LUA库里面没有提供，需要自己实现，在LuaAPI中提供了gettable函数，他接受table在栈中的位置为参数，将对应key值出栈，返回与key对应的value！<br>也就是说，可以使用这个方式，将对栈的操作进行封装，封装一个getfield函数来方便我们对table中值的取的。</p>
 <p>###The Registry<br>registry 一直位于一个由LUA_REGISTRYINDEX定义的值所对应的假索引(pseudo-index)的位置。一个假索引除了他对应的值不在栈中之外，其他都类似于栈中的索引。<br>registry就是普通的Lua表，因此，你可以使用任何非nil的Lua值来访问她的元素。然而，由于所有的C库共享相同的registry ，你必须注意使用什么样的值作为key，否则会导致命名冲突。<br>registry实现了全局的值，upvalue机制实现了与C static等价的东西</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-GPU图形渲染管线" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/13/GPU图形渲染管线/" class="article-date">
-  	<time datetime="2016-06-13T00:01:03.552Z" itemprop="datePublished">2016-06-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/13/GPU图形渲染管线/">GPU图形渲染管线</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这篇笔记先讨论一下整个绘制管线<br>在图形学方面，将图形绘制管线分为三个主要阶段：应用程序阶段、几何阶段、光栅阶段！<br>应用程序阶段：<br>使用高级语言（C++,C#,JS(webGL)）来进行编写，编写CPU执行的代码，主要是对3D空间进行模拟，针对场景搭建，坐标系建立，剪裁，碰撞检测等等，在这个过程计算完毕之后，几何体数据（顶点坐标、法向量、纹理坐标、纹理等）通过数据总线传送到图形硬件（时间瓶颈）；类似于在DX或者OpenGL中去指定了顶点缓冲区<br>几何阶段：<br>主要负责顶点坐标变换、光照、裁剪、投影以及屏幕映射！<br>坐标变换即（模型坐标系-&gt;世界坐标-&gt;相机坐标-&gt;屏幕投影（屏幕坐标系））<br>光照计算涉及视点、光源和物体的世界坐标，放在世界坐标系中进行计算<br>裁剪即判断哪些可见哪些不可见，删除掉不可见的部分</p>
-<ol>
-<li>中裁剪被安排到一个单位立方体中进行，该立方体的对角顶点分别是 (-1,-1,-1)和(1,1,1)<br>通常称这个单位立方体为规范立方体（Canonical view volume, CVV）用透视变换矩阵把顶点从视锥体中变换到裁剪空间的 CVV </li>
-<li>在 CVV 进行图元裁剪； </li>
-<li>屏幕映射：将经过前述过程得到的坐标映射到屏幕坐标系上。<br>最后得到在屏幕坐标系上的三角面片<br>该阶段基于 GPU 进行运算，在该阶段的末端得到了经过 变换和投影之后的顶点坐标、颜色、以及纹理坐标<br>光栅化阶段：<br>光栅这个词可能一开始并不是很好理解，简单点理解就是将数据格式到屏幕上！<br>决定哪些像素被集合图元覆盖的过程，经过几何阶段之后，得到了顶点坐标，颜色，纹理，有点坐标有点颜色，这个时候需要去对点与点之间进行画线</li>
-</ol>
 
       
     </div>
