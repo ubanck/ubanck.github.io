@@ -6,16 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>延迟渲染技术(Deferred Shading) | 少年鲜衣怒马，仗剑天涯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我们一直使用的光照方式叫做正向渲染(Forward Rendering)或者正向着色法(Forward Shading),这是渲染物体一种很直接的方式，根据物体材质，计算所有光源来照亮该物体，之后再去渲染下一个物体，非常简单，很容易理解，也很容易实现!但是实际上计算次数过多，因为片段着色器昂贵的计算开销！如果有M个物体，N个光源，那么一个物体需要计算N次，M个物体就需要MN次片段计算，计算成本太高">
+  <meta name="description" content="我们一直使用的光照方式叫做正向渲染(Forward Rendering)或者正向着色法(Forward Shading),这是渲染物体一种很直接的方式，根据物体材质，计算所有光源来照亮该物体，之后再去渲染下一个物体，非常简单，很容易理解，也很容易实现!">
 <meta property="og:type" content="article">
 <meta property="og:title" content="延迟渲染技术(Deferred Shading)">
 <meta property="og:url" content="http://ubanck.com/2016/06/13/延迟渲染技术(Deferred Shading)/index.html">
 <meta property="og:site_name" content="少年鲜衣怒马，仗剑天涯">
-<meta property="og:description" content="我们一直使用的光照方式叫做正向渲染(Forward Rendering)或者正向着色法(Forward Shading),这是渲染物体一种很直接的方式，根据物体材质，计算所有光源来照亮该物体，之后再去渲染下一个物体，非常简单，很容易理解，也很容易实现!但是实际上计算次数过多，因为片段着色器昂贵的计算开销！如果有M个物体，N个光源，那么一个物体需要计算N次，M个物体就需要MN次片段计算，计算成本太高">
-<meta property="og:updated_time" content="2016-06-12T12:42:40.974Z">
+<meta property="og:description" content="我们一直使用的光照方式叫做正向渲染(Forward Rendering)或者正向着色法(Forward Shading),这是渲染物体一种很直接的方式，根据物体材质，计算所有光源来照亮该物体，之后再去渲染下一个物体，非常简单，很容易理解，也很容易实现!">
+<meta property="og:updated_time" content="2016-06-28T14:32:23.193Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="延迟渲染技术(Deferred Shading)">
-<meta name="twitter:description" content="我们一直使用的光照方式叫做正向渲染(Forward Rendering)或者正向着色法(Forward Shading),这是渲染物体一种很直接的方式，根据物体材质，计算所有光源来照亮该物体，之后再去渲染下一个物体，非常简单，很容易理解，也很容易实现!但是实际上计算次数过多，因为片段着色器昂贵的计算开销！如果有M个物体，N个光源，那么一个物体需要计算N次，M个物体就需要MN次片段计算，计算成本太高">
+<meta name="twitter:description" content="我们一直使用的光照方式叫做正向渲染(Forward Rendering)或者正向着色法(Forward Shading),这是渲染物体一种很直接的方式，根据物体材质，计算所有光源来照亮该物体，之后再去渲染下一个物体，非常简单，很容易理解，也很容易实现!">
   
     <link rel="alternative" href="/atom.xml" title="少年鲜衣怒马，仗剑天涯" type="application/atom+xml">
   
@@ -164,7 +164,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>我们一直使用的光照方式叫做正向渲染(Forward Rendering)或者正向着色法(Forward Shading),这是渲染物体一种很直接的方式，根据物体材质，计算所有光源来照亮该物体，之后再去渲染下一个物体，非常简单，很容易理解，也很容易实现!<br>但是实际上计算次数过多，因为片段着色器昂贵的计算开销！如果有M个物体，N个光源，那么一个物体需要计算N次，M个物体就需要M<em>N次片段计算，计算成本太高，而更扯淡的是，因为多数相同位置的片段会被覆盖，所有，大多数的计算是毫无意义的！<br>延迟渲染就为了解决上述问题而诞生的，它用另外一种思路改变了渲染物体的方式，让我们可以对大量光源进行渲染，而保持着相对不错的帧率！顾名思义，延迟渲染的核心在于延迟，将大部分计算量非常大的渲染延迟到后期进行处理！包含两个处理阶段（Pass）:第一个几何处理阶段(Geometry Pass),先渲染场景一次，获取对象的几何信息，并存储在一系列叫做G缓冲(G-Buffer)。想想位置向量(Position Vector)、颜色向量(Color Vector)、法向量(Normal Vector)和/或镜面值(Specular Value)场景中这些储存在G缓冲中的几何信息将会在之后用来做(更复杂的)光照计算。<br>第二个光照处理阶段(Lighting Pass)，使用G-Buffer中的纹理数据，在光照处理阶段中，渲染一个屏幕大小的方形，使用G-Buffer中的几何数据对每个片段计算场景的光照，这样可以把M</em>N变成了M+N，当两者数量够大的时候，这种提升是成数量级的！</p>
+        <p>我们一直使用的光照方式叫做正向渲染(Forward Rendering)或者正向着色法(Forward Shading),这是渲染物体一种很直接的方式，根据物体材质，计算所有光源来照亮该物体，之后再去渲染下一个物体，非常简单，很容易理解，也很容易实现!<br><a id="more"></a><br>但是实际上计算次数过多，因为片段着色器昂贵的计算开销！如果有M个物体，N个光源，那么一个物体需要计算N次，M个物体就需要M<em>N次片段计算，计算成本太高，而更扯淡的是，因为多数相同位置的片段会被覆盖，所有，大多数的计算是毫无意义的！<br>延迟渲染就为了解决上述问题而诞生的，它用另外一种思路改变了渲染物体的方式，让我们可以对大量光源进行渲染，而保持着相对不错的帧率！顾名思义，延迟渲染的核心在于延迟，将大部分计算量非常大的渲染延迟到后期进行处理！包含两个处理阶段（Pass）:第一个几何处理阶段(Geometry Pass),先渲染场景一次，获取对象的几何信息，并存储在一系列叫做G缓冲(G-Buffer)。想想位置向量(Position Vector)、颜色向量(Color Vector)、法向量(Normal Vector)和/或镜面值(Specular Value)场景中这些储存在G缓冲中的几何信息将会在之后用来做(更复杂的)光照计算。<br>第二个光照处理阶段(Lighting Pass)，使用G-Buffer中的纹理数据，在光照处理阶段中，渲染一个屏幕大小的方形，使用G-Buffer中的几何数据对每个片段计算场景的光照，这样可以把M</em>N变成了M+N，当两者数量够大的时候，这种提升是成数量级的！</p>
 
       
     </div>
@@ -209,7 +209,6 @@
     		&copy; 2016 ubanck
     	</div>
       	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
       	</div>
     </div>
   </div>

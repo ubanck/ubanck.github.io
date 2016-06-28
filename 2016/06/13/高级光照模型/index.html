@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://ubanck.com/2016/06/13/高级光照模型/index.html">
 <meta property="og:site_name" content="少年鲜衣怒马，仗剑天涯">
 <meta property="og:description" content="材质和光的交互方式是多种多样的，例如，我们可以在光盘上看到如扇面般的光带分布，在光滑的圆柱形炊具上可以看到光的条纹。为了衡量材质的光学特 征和物体表面微平面特征，BRDF（Bidirectional Reflectance Distribution Function） 模型应运而生。 以BRDF模型为代表的一些新的光照模型，它们的共同特点 是，扩展了材质和光的交互方式，充分考虑材质微平面对光的影响">
-<meta property="og:updated_time" content="2016-06-12T12:43:40.388Z">
+<meta property="og:updated_time" content="2016-06-28T14:33:01.135Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高级光照模型">
 <meta name="twitter:description" content="材质和光的交互方式是多种多样的，例如，我们可以在光盘上看到如扇面般的光带分布，在光滑的圆柱形炊具上可以看到光的条纹。为了衡量材质的光学特 征和物体表面微平面特征，BRDF（Bidirectional Reflectance Distribution Function） 模型应运而生。 以BRDF模型为代表的一些新的光照模型，它们的共同特点 是，扩展了材质和光的交互方式，充分考虑材质微平面对光的影响">
@@ -164,8 +164,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>材质和光的交互方式是多种多样的，例如，我们可以在光盘上看到如扇面般的光带分布，在光滑的圆柱形炊具上可以看到光的条纹。为了衡量材质的光学特 征和物体表面微平面特征，BRDF（Bidirectional Reflectance Distribution Function） 模型应运而生。 以BRDF模型为代表的一些新的光照模型，它们的共同特点 是，扩展了材质和光的交互方式，充分考虑材质微平面对光的影响。</p>
-<p>BRDF表示双向反射分布函数（Bidirectional Reflectance Distribution Function），用来描述光线如何在物体表面进行反射</p>
+        <p>材质和光的交互方式是多种多样的，例如，我们可以在光盘上看到如扇面般的光带分布，在光滑的圆柱形炊具上可以看到光的条纹。为了衡量材质的光学特 征和物体表面微平面特征，BRDF（Bidirectional Reflectance Distribution Function） 模型应运而生。 以BRDF模型为代表的一些新的光照模型，它们的共同特点 是，扩展了材质和光的交互方式，充分考虑材质微平面对光的影响。<br><a id="more"></a><br>BRDF表示双向反射分布函数（Bidirectional Reflectance Distribution Function），用来描述光线如何在物体表面进行反射</p>
 <p>经典光照模型(illumination model)<br>光照模型，也叫明暗模型，用来计算物体某点处的光强，即在游戏或者3D软件中看到类似于光线反射强弱的部分！<br>从算法理论基础上讲，分成两种，一种是基于物理理论（使用物理方式进行计算如BRDF，效果真实，计算复杂，实现困难，部分数据需要仪器测量），另一种是基于经验模型（使用特定的公式来计算，使其与某种特定表面类型相匹配，简洁，效果偏于理想而不真实）</p>
 <p>从使用角度来讲，光照模型分为局部光照模型和全局光照模型，局部光照模型是说，讲光的种类进行分解，在计算的时候，只去考虑其中一种；而全局光照模型，则是考虑到所有的光照种类。一个比较类似的例子是物理力学，牛顿力学初<br>是考虑理想状态下的运动方式，无摩擦力；然后慢慢的会在力的条件中考虑到摩<br>擦力因素；接着会学习弹性系数。总之是将一个原本复杂的过程分解为各种子过 程，然后渐进叠加。<br>在现实世界，光照射到物体表面，一部分被吸收（光能转化为热量），另一部分被反射，对于透明的物体，如冰块玻璃，会穿透物体表面，产生透射光，反射光与投射光产生视觉效果，通过反射和透射产生的光波（光的波粒二相性）决定了物品呈现的亮度和颜色，即反射强度决定亮度，含有的不同波光长的比例决定色彩。<br>光与物品的最基本交互方式就是反射，遵循反射定律！<br>光源：<br>环境光(Ambient Light):从物体表面所产生的反射光的统一照明，称为环境光或者背景光。理想情况下，没有空间或方向性，在所有方向和物体表面投射的环境光强度是统一的恒定值。<br>由于环境光给予物体各个点的光照强度相同，且没有方向之分，所以在只有<br>环境光的情况下，同一物体各点的明暗程度均一样，因此，只有环境光是不能产 生具有真实感的图形效果。<br>粗糙的物体表面向各个方向等强度地反射光，这种等同地向各个方向散射的 现象称为光的漫反射（diffuse reflection）。产生光的漫反射现象的物体表面称为 理想漫反射体，也称为朗伯（Lambert）反射体。<br>Lambert 模型较好地表现了粗糙表面上的光照现象，如石灰粉刷的墙壁、纸张等，但在用于诸如金属材质制成的物体时，则会显得呆板，表现不出光泽，主要原因是该模型没有考虑这些表面的镜面反射效果。一个光滑物体被光照射时，可以在某个方向上看到很强的反射光，这是因为在接近镜面反射角的一个区域内，反射了入射光的全部或绝大部分光强，该现象称为镜面反射。故此，Phong Bui Tuong 提出一个计算镜面反射光强的经验模型，称为 phong模型，认为镜面反射的光强与反射光线和视线的夹角相关</p>
 
@@ -212,7 +211,6 @@
     		&copy; 2016 ubanck
     	</div>
       	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
       	</div>
     </div>
   </div>

@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://ubanck.com/2016/06/13/Lua and Unilua/index.html">
 <meta property="og:site_name" content="少年鲜衣怒马，仗剑天涯">
 <meta property="og:description" content="###LUA学习记录：C API是一个C代码与Lua进行交互的函数集。他有以下部分组成：读写Lua全局变量的函数，调用Lua函数的函数，运行Lua代码片断的函数，注册C函数然后可以在Lua中被调用的函数，等等。在C和Lua之间通信关键内容在于一个虚拟的栈。几乎所有的API调用都是对栈上的值进行操作，所有C与Lua之间的数据交换也都通过这个栈来完成。另外，你也可以使用栈来保存临时变量。Lua库没有定">
-<meta property="og:updated_time" content="2016-06-12T12:47:46.858Z">
+<meta property="og:updated_time" content="2016-06-28T14:33:15.415Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lua and Unilua">
 <meta name="twitter:description" content="###LUA学习记录：C API是一个C代码与Lua进行交互的函数集。他有以下部分组成：读写Lua全局变量的函数，调用Lua函数的函数，运行Lua代码片断的函数，注册C函数然后可以在Lua中被调用的函数，等等。在C和Lua之间通信关键内容在于一个虚拟的栈。几乎所有的API调用都是对栈上的值进行操作，所有C与Lua之间的数据交换也都通过这个栈来完成。另外，你也可以使用栈来保存临时变量。Lua库没有定">
@@ -164,7 +164,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>###LUA学习记录：<br>C API是一个C代码与Lua进行交互的函数集。他有以下部分组成：读写Lua全局变量的函数，调用Lua函数的函数，运行Lua代码片断的函数，注册C函数然后可以在Lua中被调用的函数，等等。<br>在C和Lua之间通信关键内容在于一个虚拟的栈。几乎所有的API调用都是对栈上的值进行操作，所有C与Lua之间的数据交换也都通过这个栈来完成。另外，你也可以使用栈来保存临时变量。<br>Lua库没有定义任何全局变量。它所有的状态保存在动态结构lua_State中，而且指向这个结构的指针作为所有Lua函数的一个参数。</p>
+        <p>###LUA学习记录：<br>C API是一个C代码与Lua进行交互的函数集。他有以下部分组成：读写Lua全局变量的函数，调用Lua函数的函数，运行Lua代码片断的函数，注册C函数然后可以在Lua中被调用的函数，等等。<br>在C和Lua之间通信关键内容在于一个虚拟的栈。几乎所有的API调用都是对栈上的值进行操作，所有C与Lua之间的数据交换也都通过这个栈来完成。另外，你也可以使用栈来保存临时变量。<br>Lua库没有定义任何全局变量。它所有的状态保存在动态结构lua_State中，而且指向这个结构的指针作为所有Lua函数的一个参数。<br><a id="more"></a></p>
 <p>###运行步骤：<br>创建一个state并将标准库载入之后，就可以着手解释用户的输入了。对于用户输入的每一行，C程序首先调用luaL_loadbuffer编译这些Lua代码。如果没有错误，这个调用返回零并把编译之后的chunk压入栈。（记住，我们将在下一节中讨论魔法般的栈）之后，C程序调用lua_pcall，它将会把chunk从栈中弹出并在保护模式下运行它。和luaL_laodbuffer一样，lua_pcall在没有错误的情况下返回零。在有错误的情况下，这两个函数都将一条错误消息压入栈；我们可以用lua_tostring来得到这条信息、输出它，用lua_pop将它从栈中删除。</p>
 <p>###堆栈：关于栈的操作请参见Programing in Lua一书中的186页的一个函数<br>压入元素，API有一系列压栈的函数，他将每种可以用C来描述的Lua类型压栈（pushnil,pushnumber,pushboolean,pushstring）等等，第一参数都是luaState!<br>使用checkStack来检测栈是否有足够的空间！<br>有检测元素类型的函数，比如 isnumber之类的！</p>
 <p>###查询元素，tonumber,tostring之类的<br>堆栈的操作，gettop返回堆栈元素个数，也是栈顶元素的索引！settop设置栈顶（堆栈中元素个数）为一个指定的值！如果开始的栈顶高于指定的栈顶，顶部的值将会被丢弃！settop(L,0)清空堆栈！<br>使用负数会设置堆栈顶到指定的索引！<br>pushvalue压入堆栈上指定索引的一个拷贝到栈顶！insert移动栈顶的元素到指定索引的位置，并将这个索引位置上面的元素全部上移至栈顶被移动后留下的空隔！<br>replace从栈顶弹出元素将其设置到指定索引位置，没有任何移动操作<br>LUA中使用更多的使用对栈的操作来实现数据的交互！提供了一些对栈操作的API标准，在UniLua中，依照标准实现了这些函数，名字都只是小改动了一些，毕竟C#跟C语法规则还是不同！在对堆栈的操作中，是用索引来进行定位的，正数索引自底向上取值，负数索引自顶向下取值（以正负1开始）！在其中settop函数中使用了索引0用来清空堆栈</p>
@@ -214,7 +214,6 @@
     		&copy; 2016 ubanck
     	</div>
       	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
       	</div>
     </div>
   </div>
