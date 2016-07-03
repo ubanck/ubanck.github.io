@@ -1,760 +1,404 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>少年鲜衣怒马，仗剑天涯</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="少年鲜衣怒马，仗剑天涯">
-<meta property="og:url" content="http://ubanck.com/index.html">
-<meta property="og:site_name" content="少年鲜衣怒马，仗剑天涯">
-<meta property="og:description">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="少年鲜衣怒马，仗剑天涯">
-<meta name="twitter:description">
-  
-    <link rel="alternative" href="/atom.xml" title="少年鲜衣怒马，仗剑天涯" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-
-<body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
+<!-- saved from url=(0071)https://dl.dropboxusercontent.com/u/6983010/wserv/gexp_pulpo/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <title>Pulpo - three.js - WebGL</title>
+        
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+        <style type="text/css">
+            *{
+                padding: 0;
+                margin: 0;
+                overflow: hidden;
+                cursor:crosshair!Important;
+            }
+            *:hover{
+                cursor:crosshair;
+            }
+            body {
+                background-color: #000000;
+                margin: 0px;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript" src="./js/Three.js"></script>
+        <script type="text/javascript" src="./js/ShaderExtras.js"></script>
+        <script type="text/javascript" src="./js/EffectComposer.js"></script>
+        <script type="text/javascript" src="./js/MaskPass.js"></script>
+        <script type="text/javascript" src="./js/RenderPass.js"></script>
+        <script type="text/javascript" src="./js/ShaderPass.js"></script>
+        <script type="text/javascript" src="./js/BloomPass.js"></script>
+        <script type="text/javascript" src="./js/RequestAnimationFrame.js"></script>
+        <script type="text/javascript" src="./js/Stats.js"></script>
+        <link href="./js/GUI.css" media="screen" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="./js/GUI.js"></script>
+        <script type="text/javascript" src="./js/ControllerNumberSlider.js"></script>
+        <script type="text/javascript" src="./js/Controller.js"></script>
+        <script type="text/javascript" src="./js/ControllerBoolean.js"></script>
+        <script type="text/javascript" src="./js/ControllerString.js"></script>
+        <script type="text/javascript" src="./js/ControllerFunction.js"></script>
+        <script type="text/javascript" src="./js/ControllerNumber.js"></script>
+        <script type="text/javascript">
+            var pospo =1
+            var _stats = 1
+            var container, stats;
+            var camera, sprite, material, scene, renderer, ribbon, geometry, materials = [], ribbons = [], parameters, i, i2, h, color, x, y, z, z2, s, n, n2, nribbons, grid, geom = [], geomVel = [] , posZ = [];
+            var plane
+            var mouseX = 0, mouseY = 0;
+            var count = 0
+            var mouseDn = 0
+            var winnerWidth = window.innerWidth*1
+            var winnerHeight = window.innerHeight*1
+            var windowHalfX = winnerWidth / 2;
+            var windowHalfY = winnerHeight / 2;
+            var postprocessing = { enabled : false };
+            var composer;
+            var mi_pulpo
+            var i, line, vector1, vector2, material, p,
+            geometry = new THREE.Geometry();
 			
-			<img lazy-src="/img/avatar.png" class="js-avatar">
+            ////-------------------------------------------------------
+            var gui = new DAT.GUI({
+                //height : 5 * 32 - 1
+            }); 
+            var params = {FOV: 100, Pospo:true}; 
+            gui.add(params, 'FOV').min(1).max(180).onChange(function(){
+                camera.fov = params.FOV
+                camera.updateProjectionMatrix ()
+            }) 
+            if (pospo){
+                gui.add(params, 'Pospo').onChange(function(){
+                    pospo = params.Pospo
+                }) 
+            }
+            ////-------------------------------------------------------
 			
-		</a>
-
-		<hgroup>
-		  <h1 class="header-author"><a href="/">ubanck</a></h1>
-		</hgroup>
-
-		
-		<p class="header-subtitle">只要心还透明，就能折射希望</p>
-		
-
-		
-
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/">主页</a></li>
-				        
-							<li><a href="/archives">所有文章</a></li>
-				        
-						</ul>
-					</nav>
-					<nav class="header-nav">
-						<div class="social">
-							
-								<a class="github" target="_blank" href="#" title="github">github</a>
-					        
-								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
-					        
-								<a class="rss" target="_blank" href="#" title="rss">rss</a>
-					        
-								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
-					        
-						</div>
-					</nav>
-				</section>
-				
-				
-				
-				
-
-				
-			</div>
-		</div>
-	</header>				
-</div>
-
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">ubanck</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-			
-				<img lazy-src="/img/avatar.png" class="js-avatar">
-			
-			</div>
-			<hgroup>
-			  <h1 class="header-author">ubanck</h1>
-			</hgroup>
-			
-			<p class="header-subtitle">只要心还透明，就能折射希望</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">主页</a></li>
-		        
-					<li><a href="/archives">所有文章</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="#" title="github">github</a>
-			        
-						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
-			        
-						<a class="rss" target="_blank" href="#" title="rss">rss</a>
-			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
-			        
-				</div>
-			</nav>
-		</header>				
-	</div>
-</nav>
-
-      <div class="body-wrap">
+            init();
+            animate();
   
-    <article id="post-每日日志" class="article article-type-post" itemscope itemprop="blogPost">
+            ////-------------------------------------------------------
+            //// CLASS PULPO
+            ////-------------------------------------------------------
+            function Pulpo(){
+                
+                var fast = 0 
+                var cantCeldTent =26
+                var largoTotal = 650
+                var anchoBrz = 70
+                var ruedatentacules = 5 /*NO PONER PAR*/
+                var changeColor = 1
+                /**/
+                var tm = 0
+                var materpup
+                var materpupfast
+                var materpupPart
+                var largoCeldTent 
+                var tentacles = []
+                var nulRoot 
+                var ready = 0
+                /**/
+                var oldAngleX = 0
+                var changeRotX = 0
+                var oldAngleY = 0
+                var changeRotY = 0
+                var oldAngleZ = 0
+                var changeRotZ = 0
+                var thisRueda = 0
+                var misprite
+                var misprite2
+                /**/
+                this.isready = function(){ return (ready)}
+                if (fast){
+                    changeColor = 0;
+                    cantCeldTent = 10;
+                    ruedatentacules = 1
+                    largoTotal = 500
+                    pospo = 0;
+                    if (0){
+                        var ruedatentacules = 1
+                        var cantCeldTent = 1
+                    }
+                }
+               
   
-    <div class="article-meta">
-      <a href="/2016/06/28/每日日志/" class="article-date">
-  	<time datetime="2016-06-28T15:20:25.000Z" itemprop="datePublished">2016-06-28</time>
-</a>
-    </div>
+                ////-------------------------------------------------------
+                this.cons = function(){
+                    if (!ready) construct();
+                }
+                this.anim = function(){
+                    if (ready) {
+                        oldAngleX = nulRoot.rotation.x;
+                        oldAngleY = nulRoot.rotation.y;
+                        oldAngleZ = nulRoot.rotation.z;
+                    }
+                    if (!ready) construct();
+                    if (ready){animPriv()}
+                    tm++
+                }
+                this.inst = function(){
+                    return nulRoot
+                }
+                this.valsupdate = function(){
+                    if (ready) {
+                        changeRotX = nulRoot.rotation.x - oldAngleX;
+                        changeRotY = nulRoot.rotation.y - oldAngleY;
+                        changeRotZ = nulRoot.rotation.z - oldAngleZ;
+                    }
+                }
+                ////-------------------------------------------------------
+
+
+                ////-------------------------------------------------------
+                function construct(){
+                    //MATERIAL
+                    if (ready) return;
+                    largoCeldTent = largoTotal / cantCeldTent
+                    
+                    misprite = THREE.ImageUtils.loadTexture( "particle.png")
+                    materpup = new THREE.MeshBasicMaterial({color: 0xffffff, opacity:0.7, depthTest:0, vertexColors: THREE.FaceColors, transparent: true, blending: THREE.AdditiveBlending})
+                    materpupPart = new THREE.MeshBasicMaterial({color: 0x8891cb, opacity:0.7, depthTest:0, vertexColors: THREE.FaceColors, transparent: true, blending: THREE.AdditiveBlending})
+                    materpupfast = new THREE.MeshBasicMaterial({color: 0xffffff, opacity:0.8, depthTest:0, vertexColors: THREE.FaceColors})
+                    if (fast){
+                        materpup = materpupfast
+                    }
+                    
+                    //ROOT
+                    nulRoot = new THREE.Mesh()
+                    scene.addObject( nulRoot );
+                    
+                    //RUEDAS DE TENTACULOS
+                    for (var j = 0; j < ruedatentacules*1; j++) {
+                        for (var i = 0; i < ruedatentacules*1; i++) {
+                            if (i == 0){thisRueda ++}
+                            var tent = new tentacle()
+                            tent.contructorT(j* (360/(ruedatentacules*1)*0.017453), i* (360/(ruedatentacules*1)*0.017453), thisRueda )
+                            tentacles.push(tent)
+                        }
+                    }
+                    
+                    
+                    ready = 1
+                }
+                ////-------------------------------------------------------
+                function animPriv(){
+                    var max = tentacles.length
+                    for (var i = 0; i < max; i++) {
+                        tentacles[i].animPrivT()
+                    }
+                }
+                ////-------------------------------------------------------
   
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/28/每日日志/">每日日志</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <a id="more"></a>
-<p>2016-06-28 23:21:18<br>早上早起坐腹肌训练<br>上班<br>晚上六点健身房跑步<br>下班之后，简单的使用一下git及github，上传独立游戏相关代码，此后持续开发</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-独立游戏（混乱领域）设计" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/18/独立游戏（混乱领域）设计/" class="article-date">
-  	<time datetime="2016-06-18T13:42:51.000Z" itemprop="datePublished">2016-06-18</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/18/独立游戏（混乱领域）设计/">独立游戏（混乱领域）设计</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>玩法设计：<br>    1.玩家在3D的空间中躲避障碍物，获取障碍物身上的属性（光因子与暗因子）</p>
-<p>日志记录：<br>    以画家邱丹丹的一副排队上厕所的画为主题，进行创作        </p>
-<pre><code>方案初定，浪起来
-
-门：
-    检测碰撞
-</code></pre><p>未完成，终结！        </p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-记录参加中国独立游戏嘉年华" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/18/记录参加中国独立游戏嘉年华/" class="article-date">
-  	<time datetime="2016-06-18T13:41:56.000Z" itemprop="datePublished">2016-06-18</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
+                ////-------------------------------------------------------
+                ////TENTACLE
+                ////-------------------------------------------------------
+                function tentacle(){
+                    var celdaTents = []
+                    var celdaTentsRY = []
+                    var celdaTentsRZ = []
+                    var celdaTentsRY2 = []
+                    var celdaTentsRZ2 = []
+                    var _rootceldaTent 
+                    var initAngY
+                    var initAngZ
+                    var rueda
+                    var mirand
+                    var multRestP = 2.3
+                    var innerP = 0.4
+                    if (fast){
+                        multRest = 4
+                    }
+                    ////-------------------------------------------------------
+                    this.contructorT = function($initAngY, $initAngZ, $rueda){
+                        initAngY = $initAngY *  (0.9 + (Math.random())/5)
+                        initAngZ = $initAngZ *  (0.9 + (Math.random())/5)
+                        //
+                        celdaTentsRY.push[0]
+                        celdaTentsRZ.push[0]
+                        celdaTentsRY2.push[0]
+                        celdaTentsRZ2.push[0]
+                        //
+                        mirand = 1 +((Math.random())/2) -0.25
+                        rueda = $rueda
+                        
+                        for (var i = 0; i < cantCeldTent; i++) {
+                            var iPer = (i/cantCeldTent)
+                            var iPerNeg = 1 - iPer
+                            var iPerNegExp = (iPerNeg )
+                            var iPerNegExp2 = (1 - ((i+1)/cantCeldTent) )
+                            var sizeh =  ((anchoBrz*iPerNegExp*iPerNegExp*iPerNegExp*iPerNegExp)+2.5)
+                            var sizeh2 = ((anchoBrz*iPerNegExp2*iPerNegExp2*iPerNegExp2*iPerNegExp2)+2.5)
+                            var largo = largoCeldTent
+                            var cube = new THREE.CubeGeometry( largo, sizeh, sizeh )
+                            
+                            //REDUCCION
+                            var redux = sizeh / sizeh2
+                            for ( var v = 0; v < cube.vertices.length; v ++ ) {
+                                if (v == 5 || v == 6 || v == 7 || v == 8|| v == 4){
+                                    cube.vertices[ v ].position.y /= redux;
+                                    cube.vertices[ v ].position.z /= redux;
+                                }
+                            }
+                            var celdaTent = new THREE.Mesh( cube, materpup )
+                            celdaTent.doubleSided = false
     
     
-      <header class="article-header">
-        
+                            if (changeColor){
+                                for (var fcs = 0; fcs < celdaTent.geometry.faces.length; fcs++) {
+                                    var co = new THREE.Color();
+                                    co.setHSV( (iPer/4)+0.45  , 0.25+(iPer/2), iPerNeg/6+0.3  );
+                                    if (fcs == 0 ||fcs == 10){
+                                        co.setHSV( (iPer/4)+0.45  , 0.35+(iPer/2), 0 );
+                                    }
+                                    celdaTent.geometry.faces[fcs].color = co;
+                                }
+                            }
+       
+                            if (i==0){
+                                _rootceldaTent = celdaTent
+                            }else{
+                                celdaTents[celdaTents.length-1].addChild(celdaTent)
+                                celdaTent.position.x = (largo)
+                                
+                                
+                                if (Math.random()>0.2 && 1){
+                                    var celdaTent2 = new THREE.Mesh( new THREE.PlaneGeometry( 5, 5 ), materpupPart )
+                                    celdaTents[celdaTents.length-1].addChild(celdaTent2)
+                                    celdaTent2.position.x = (largo*3)
+                                    celdaTent2.position.y = (largo*5 * Math.random())
+                                    celdaTent2.position.z = (largo*5 * Math.random())
+                                    celdaTent2.rotation.y = Math.random()*6
+                                    celdaTent2.rotation.z = Math.random()*6
+                                    if (changeColor){
+                                        for (var fcs = 0; fcs < celdaTent2.geometry.faces.length; fcs++) {
+                                            var co = new THREE.Color();
+                                            co.setHSV( 0.55  , 1, 3 );
+                                            celdaTent2.geometry.faces[fcs].color = co;
+                                        }
+                                    }
+                                }
+                            }
+                            celdaTents.push(celdaTent)
+                        }
+                        nulRoot.addChild( _rootceldaTent );
+                        _rootceldaTent.rotation.y = initAngY
+                        _rootceldaTent.rotation.z = initAngZ
+                    }
+                    ////-------------------------------------------------------
+                    this.animPrivT = function(){
+                        var max = celdaTents.length
+                        for (var i = 0; i < max; i++) {
+                            if(i>0){
+                                var multRest = multRestP * (i/max) * mirand
+                                var inner = innerP * (0.9 + (Math.random())/5)
+                                celdaTentsRZ[i] =  -changeRotZ *  Math.cos(initAngY) * multRest*0.6
+                                celdaTentsRY[i] =  -changeRotZ *  Math.sin(initAngZ) *  Math.sin(initAngY) * multRest
+                                //****************************
+                                celdaTentsRY2[i] =  -changeRotY *  Math.cos(initAngZ) * multRest*2 * Math.cos(nulRoot.rotation.z)
+                                celdaTentsRZ2[i] =  0*changeRotY *  Math.sin(initAngZ) * multRest * Math.sin(nulRoot.rotation.z) * Math.sin(nulRoot.rotation.y)
+                                //****************************
+                                celdaTents[i].rotation.y += ((celdaTentsRY[i] +  celdaTentsRY2[i])- celdaTents[i].rotation.y) * innerP
+                                celdaTents[i].rotation.z += ((celdaTentsRZ[i] +  celdaTentsRZ2[i])- celdaTents[i].rotation.z) * innerP
+                                if (1){
+                                    celdaTents[0].scale.z =  2+ (Math.cos(tm/30)*1.2) 
+                                    celdaTents[0].scale.x =  2+ (Math.cos(tm/30)*1.2)
+                                    celdaTents[0].scale.y =  2+ (Math.cos(tm/30)*1.2) 
+                                }
+                            }else{
+                                
+                            }
+                        }
+                    }
+                    ////-------------------------------------------------------
+                }
+                ////-------------------------------------------------------
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/18/记录参加中国独立游戏嘉年华/">记录参加中国独立游戏嘉年华</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最终作品太挫，一方面是不够重视，以为参加的都是学生，并没有什么研发实力那种！另一方面是创意体现有问题，此外，人员配置有误！浪费了大量的时间。</p>
-<p>结果发现，大量的优秀人才，优秀创意出现！</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-做该做的事儿" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/18/做该做的事儿/" class="article-date">
-  	<time datetime="2016-06-18T09:22:10.000Z" itemprop="datePublished">2016-06-18</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/18/做该做的事儿/">要奔跑啊，少年</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>人心是渐渐变凉的，树叶是慢慢变黄的，故事缓缓写到结尾！不念过往，不畏将来！</p>
-<p>2016年7月3日10:22:31<br>英雄气短，儿女情长，少年，要奔跑啊，路边的风景，看看就可以了，不要参与其中，看到自己的目标吧！<br>幼稚的按照自己的情绪去做事，以前觉得任性很好，可是现在想想，任性很容易，克制才更难吧！</p>
-<p>为事业奋斗，永远不要感动自己，论到努力程度，富士康里面的流水线工人比你努力多了，方向也许会比努力更重要！</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-转变画风" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/13/转变画风/" class="article-date">
-  	<time datetime="2016-06-13T00:01:03.594Z" itemprop="datePublished">2016-06-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/13/转变画风/">转变画风(方式方法)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>下午的时候，新的电脑到位了，上一台笔记本终于算是功德圆满，退居幕后了！一直想写点东西，只是一直没时间，或者说一直没功夫来做这件事，就一直拖着拖着，总给自己找理由，现在，终于有时间静下来写点东西给自己！<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/06/13/转变画风/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-延迟渲染技术(Deferred Shading)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/13/延迟渲染技术(Deferred Shading)/" class="article-date">
-  	<time datetime="2016-06-13T00:01:03.590Z" itemprop="datePublished">2016-06-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/13/延迟渲染技术(Deferred Shading)/">延迟渲染技术(Deferred Shading)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我们一直使用的光照方式叫做正向渲染(Forward Rendering)或者正向着色法(Forward Shading),这是渲染物体一种很直接的方式，根据物体材质，计算所有光源来照亮该物体，之后再去渲染下一个物体，非常简单，很容易理解，也很容易实现!<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/06/13/延迟渲染技术(Deferred Shading)/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-渲染管线坐标变换" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/13/渲染管线坐标变换/" class="article-date">
-  	<time datetime="2016-06-13T00:01:03.585Z" itemprop="datePublished">2016-06-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/13/渲染管线坐标变换/">渲染管线坐标变换</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>2D展示<br>如果在2D上面，很简单，完全可以看作是一张图贴在屏幕上就OK。在3D上面，就复杂了一点，首先，我们的屏幕上2D的，不像现实世界，是三维空间！那么怎么在屏幕上画东西才能看上去有3D效果呢，你可以试试在纸上画一个立方体，学过数学都会画，你第一眼看上去就会觉得这是3D的，而不是一个简单的矩形！　<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/06/13/渲染管线坐标变换/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-漫反射光照" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/13/漫反射光照/" class="article-date">
-  	<time datetime="2016-06-13T00:01:03.581Z" itemprop="datePublished">2016-06-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/13/漫反射光照/">漫反射光照</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在游戏开发过程中，光照应该是必不可少部分，当然，这是指大多数的稍微大型一些的3D游戏会需要，给模型或者山山水水加上光照，会看上去更加的真实，获得更好的体验。一个本身不发光物体显示什么颜色，在于本身反射什么颜色，比如一块石头，在太阳光的照射之后，你看到是红色的，而太阳光是白色的，白色是因为RGB组合而成，这快石头吸收了绿色和蓝色，反射了红色，那么你看到这块石头就会是红色的！<br>那么谈到反射，就分为了漫反射（diffuse）和镜面反射（specular），先说漫反射<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/06/13/漫反射光照/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-技能树梳理" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/13/技能树梳理/" class="article-date">
-  	<time datetime="2016-06-13T00:01:03.577Z" itemprop="datePublished">2016-06-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/13/技能树梳理/">技能树梳理</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>规划整个技术文章的走向，即分析整个技术体系，以博客文章的方式来归纳总结<br>图形学：整个绘制管线，GPU渲染知识，各种常用与不常用的Shader编写及原理<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/06/13/技能树梳理/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-高级光照模型" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/13/高级光照模型/" class="article-date">
-  	<time datetime="2016-06-13T00:01:03.572Z" itemprop="datePublished">2016-06-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/13/高级光照模型/">高级光照模型</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>材质和光的交互方式是多种多样的，例如，我们可以在光盘上看到如扇面般的光带分布，在光滑的圆柱形炊具上可以看到光的条纹。为了衡量材质的光学特 征和物体表面微平面特征，BRDF（Bidirectional Reflectance Distribution Function） 模型应运而生。 以BRDF模型为代表的一些新的光照模型，它们的共同特点 是，扩展了材质和光的交互方式，充分考虑材质微平面对光的影响。<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/06/13/高级光照模型/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
+            }
+            ////-------------------------------------------------------
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
   
-</div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2016 ubanck
-    	</div>
-      	<div class="footer-right">
-      	</div>
-    </div>
-  </div>
-</footer>
-    </div>
-    
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-
-<script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: true,
-		animate: true,
-		isHome: true,
-		isPost: false,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: false
-	}
-</script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-<script src="/js/main.js"></script>
-
-
-
-
-
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
-</script>
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-
-  </div>
-</body>
-</html>
+            ////-------------------------------------------------------
+            function init() {
+                container = document.createElement( 'div' );
+                document.body.appendChild( container );
+                camera = new THREE.Camera( params.FOV, winnerWidth / winnerHeight, 1, 5000 );
+                camera.position.z = 1000;
+                //
+                scene = new THREE.Scene();
+                scene.fog = new THREE.Fog( 0x020209, 0, 25000 );
+                scene.matrixAutoUpdate = true;
+                //
+                renderer = new THREE.WebGLRenderer( { clearAlpha: 1, antialias: false} );
+                renderer.setSize( winnerWidth, winnerHeight );
+                renderer.sortElements = true;
+                renderer.autoClear = !pospo;
+                renderer.setClearColor( scene.fog.color, 1 );
+                container.appendChild( renderer.domElement );
+                //
+                if (_stats){
+                    stats = new Stats();
+                    stats.domElement.style.position = 'absolute';
+                    stats.domElement.style.top = '0px';
+                    container.appendChild( stats.domElement );
+                }
+                //
+                document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+                container.addEventListener( 'mousedown', onDocumentMouseDown, false );
+                container.addEventListener( 'mouseup', onDocumentMouseUp, false );
+                //
+                if (pospo){
+                    var renderModel = new THREE.RenderPass( scene, camera );
+                    var effectBloom = new THREE.BloomPass( 5, 25, 4 , 256);
+                    var effectScreen = new THREE.ShaderPass( THREE.ShaderExtras[ "screen" ] );
+                    effectScreen.renderToScreen = true;
+                    composer = new THREE.EffectComposer( renderer );
+                    composer.addPass( renderModel );
+                    composer.addPass( effectBloom );
+                    composer.addPass( effectScreen );
+                }
+                mi_pulpo = new Pulpo()
+                mi_pulpo.cons()
+            }
+            function onDocumentMouseMove( event ) {
+                if (mouseDn){
+                    mouseX = event.clientX - windowHalfX;
+                    mouseY = event.clientY - windowHalfY;
+                }
+            }
+            function onDocumentMouseDown(event){
+                mouseDn = 1
+            }
+            function onDocumentMouseUp(event){
+                mouseDn = 0
+            }
+            function animate() {
+                count++
+                if ( mi_pulpo.isready && 1){
+                    mi_pulpo.anim()
+                    mi_pulpo.inst().rotation.z += (Math.sin(count/80)*8 - mi_pulpo.inst().rotation.z ) * 0.1;
+                    mi_pulpo.inst().rotation.y += (Math.cos(count/80)*8- mi_pulpo.inst().rotation.y ) * 0.1;
+                }
+                
+                requestAnimationFrame( animate );
+                render();
+                stats.update();
+                
+                mi_pulpo.valsupdate()
+            }
+            function render() {
+                camera.position.x += ( mouseX*6 - camera.position.x ) * 0.3;
+                camera.position.y += ( -(mouseY*6) - camera.position.y ) * 0.3;
+                renderer.clear();
+                if(pospo){
+                    renderer.autoClear = false
+                    composer.render( );
+                }else{
+                    renderer.autoClear = true
+                    renderer.render( scene, camera );
+                }
+            }
+        </script>
+    </body></html>
