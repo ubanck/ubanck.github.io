@@ -4,18 +4,24 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>GPU编程概述 | 少年鲜衣怒马，仗剑天涯</title>
+  <title>Unity Shader特效集合--边缘发光 | 少年鲜衣怒马，仗剑天涯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#GPU硬件概述Programmable Graphics Processing Unit（GPU），即可编程图形处理单元， 通常也称之为可编程图形硬件为什么有CPU之后还需要GPU呢？由于GPU具有高并行结构(highly parallel structure),">
+  <meta name="description" content="原理：
+主要实现步骤：
+Shader代码：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GPU编程概述">
-<meta property="og:url" content="http://ubanck.com/2016/06/13/GPU编程概述/index.html">
+<meta property="og:title" content="Unity Shader特效集合--边缘发光">
+<meta property="og:url" content="http://ubanck.com/2016/08/20/Unity-Shader特效集合-边缘发光/index.html">
 <meta property="og:site_name" content="少年鲜衣怒马，仗剑天涯">
-<meta property="og:description" content="#GPU硬件概述Programmable Graphics Processing Unit（GPU），即可编程图形处理单元， 通常也称之为可编程图形硬件为什么有CPU之后还需要GPU呢？由于GPU具有高并行结构(highly parallel structure),">
-<meta property="og:updated_time" content="2016-06-28T14:33:11.168Z">
+<meta property="og:description" content="原理：
+主要实现步骤：
+Shader代码：">
+<meta property="og:updated_time" content="2016-08-20T07:12:22.977Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GPU编程概述">
-<meta name="twitter:description" content="#GPU硬件概述Programmable Graphics Processing Unit（GPU），即可编程图形处理单元， 通常也称之为可编程图形硬件为什么有CPU之后还需要GPU呢？由于GPU具有高并行结构(highly parallel structure),">
+<meta name="twitter:title" content="Unity Shader特效集合--边缘发光">
+<meta name="twitter:description" content="原理：
+主要实现步骤：
+Shader代码：">
   
     <link rel="alternative" href="/atom.xml" title="少年鲜衣怒马，仗剑天涯" type="application/atom+xml">
   
@@ -131,11 +137,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-GPU编程概述" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Unity-Shader特效集合-边缘发光" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/06/13/GPU编程概述/" class="article-date">
-  	<time datetime="2016-06-13T00:01:03.547Z" itemprop="datePublished">2016-06-13</time>
+      <a href="/2016/08/20/Unity-Shader特效集合-边缘发光/" class="article-date">
+  	<time datetime="2016-08-20T07:10:10.000Z" itemprop="datePublished">2016-08-20</time>
 </a>
     </div>
   
@@ -148,7 +154,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      GPU编程概述
+      Unity Shader特效集合--边缘发光
     </h1>
   
 
@@ -164,7 +170,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#GPU硬件概述<br>Programmable Graphics Processing Unit（GPU），即可编程图形处理单元， 通常也称之为可编程图形硬件<br>为什么有CPU之后还需要GPU呢？<br>由于GPU具有高并行结构(highly parallel structure),<br><a id="more"></a><br>所以在处理图形数据跟复杂算法上有着比CPU更高点效率，CPU对比CPU的结构，CPU上面有更多的控制器和寄存器，而GPU有更多的ALU(Arithmetic Logic Unit,逻辑运算单元)，这两种情况的区别是，CPU需要数据高速缓存和流控制（也就是逻辑控制），而而且CPU执行计算的时候，一个时刻只处理一个数据！而GPU具备多处理器核心，在同一时刻可以并行处理多个数据！简单点说，CPU强大在于任务调度和系统控制，而真正做矩阵计算，GPU更擅长<br>CPU的大量晶体管花在了cache和控制器<br>GPU几乎所有晶体管都用在计算<br>一个大学生CPU（CPU是用来做复杂但是数量有限的运算的，例如算一算圆周率啊之类的）对比一百个小学生GPU（GPU是用来做极其简单，但是数量极多的运算的）<br>GPU采用流式并行计算，对每个数据进行独立的并行计算（即流内任意元素不依赖其他同类数据，如计算一个顶点的世界坐标位置，不依赖于其他顶点的位置）。而所谓“并行计算”是指<br>“多个数据可以同时被使用，多个数据并行运算的时间和 一个数据单独执行 的时间是一样的”<br>使用C++去遍历所有的像素，只能以二维数组的方式去遍历，而使用GPU语言，如CG之类的，就可以以一条语句来执行！</p>
+        <p>原理：</p>
+<p>主要实现步骤：</p>
+<p>Shader代码：</p>
 
       
     </div>
@@ -174,18 +182,18 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/06/13/GPU图形渲染管线/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/08/20/Unity-Shader特效集合-溶解效果/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          GPU图形渲染管线
+          Unity Shader特效集合--溶解效果
         
       </div>
     </a>
   
   
-    <a href="/2016/01/28/每日日志/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">2016年计划</div>
+    <a href="/2016/07/31/随手记/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">随手记</div>
       <strong class="article-nav-caption">></strong>
     </a>
   

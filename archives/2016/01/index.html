@@ -4,18 +4,17 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>GPU编程概述 | 少年鲜衣怒马，仗剑天涯</title>
+  <title>Archives: 2016/1 | 少年鲜衣怒马，仗剑天涯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#GPU硬件概述Programmable Graphics Processing Unit（GPU），即可编程图形处理单元， 通常也称之为可编程图形硬件为什么有CPU之后还需要GPU呢？由于GPU具有高并行结构(highly parallel structure),">
-<meta property="og:type" content="article">
-<meta property="og:title" content="GPU编程概述">
-<meta property="og:url" content="http://ubanck.com/2016/06/13/GPU编程概述/index.html">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="少年鲜衣怒马，仗剑天涯">
+<meta property="og:url" content="http://ubanck.com/archives/2016/01/index.html">
 <meta property="og:site_name" content="少年鲜衣怒马，仗剑天涯">
-<meta property="og:description" content="#GPU硬件概述Programmable Graphics Processing Unit（GPU），即可编程图形处理单元， 通常也称之为可编程图形硬件为什么有CPU之后还需要GPU呢？由于GPU具有高并行结构(highly parallel structure),">
-<meta property="og:updated_time" content="2016-06-28T14:33:11.168Z">
+<meta property="og:description">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GPU编程概述">
-<meta name="twitter:description" content="#GPU硬件概述Programmable Graphics Processing Unit（GPU），即可编程图形处理单元， 通常也称之为可编程图形硬件为什么有CPU之后还需要GPU呢？由于GPU具有高并行结构(highly parallel structure),">
+<meta name="twitter:title" content="少年鲜衣怒马，仗剑天涯">
+<meta name="twitter:description">
   
     <link rel="alternative" href="/atom.xml" title="少年鲜衣怒马，仗剑天涯" type="application/atom+xml">
   
@@ -131,75 +130,49 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-GPU编程概述" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap">
   
-    <div class="article-meta">
-      <a href="/2016/06/13/GPU编程概述/" class="article-date">
-  	<time datetime="2016-06-13T00:01:03.547Z" itemprop="datePublished">2016-06-13</time>
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2016" class="archive-year">2016</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2016/01/28/每日日志/" class="archive-article-date">
+  	<time datetime="2016-01-28T15:20:25.000Z" itemprop="datePublished">Jan 28</time>
 </a>
-    </div>
+        </div>
+    	 
   
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      GPU编程概述
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2016/01/28/每日日志/">2016年计划</a>
     </h1>
   
 
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-        
+        <div class="article-info info-on-right">
+          
+          
 
+        </div>
         <div class="clearfix"></div>
-      </div>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#GPU硬件概述<br>Programmable Graphics Processing Unit（GPU），即可编程图形处理单元， 通常也称之为可编程图形硬件<br>为什么有CPU之后还需要GPU呢？<br>由于GPU具有高并行结构(highly parallel structure),<br><a id="more"></a><br>所以在处理图形数据跟复杂算法上有着比CPU更高点效率，CPU对比CPU的结构，CPU上面有更多的控制器和寄存器，而GPU有更多的ALU(Arithmetic Logic Unit,逻辑运算单元)，这两种情况的区别是，CPU需要数据高速缓存和流控制（也就是逻辑控制），而而且CPU执行计算的时候，一个时刻只处理一个数据！而GPU具备多处理器核心，在同一时刻可以并行处理多个数据！简单点说，CPU强大在于任务调度和系统控制，而真正做矩阵计算，GPU更擅长<br>CPU的大量晶体管花在了cache和控制器<br>GPU几乎所有晶体管都用在计算<br>一个大学生CPU（CPU是用来做复杂但是数量有限的运算的，例如算一算圆周率啊之类的）对比一百个小学生GPU（GPU是用来做极其简单，但是数量极多的运算的）<br>GPU采用流式并行计算，对每个数据进行独立的并行计算（即流内任意元素不依赖其他同类数据，如计算一个顶点的世界坐标位置，不依赖于其他顶点的位置）。而所谓“并行计算”是指<br>“多个数据可以同时被使用，多个数据并行运算的时间和 一个数据单独执行 的时间是一样的”<br>使用C++去遍历所有的像素，只能以二维数组的方式去遍历，而使用GPU语言，如CG之类的，就可以以一条语句来执行！</p>
-
-      
-    </div>
-    
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2016/06/13/GPU图形渲染管线/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          GPU图形渲染管线
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2016/01/28/每日日志/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">2016年计划</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
-</nav>
-
-  
 </article>
+  
+  
+    </div></section>
+  
 
-
-
-
-
-
-
+    
 
 </div>
       <footer id="footer">
@@ -224,8 +197,8 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false
